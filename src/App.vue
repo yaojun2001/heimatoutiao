@@ -1,12 +1,22 @@
 <template>
   <div id="app">
-    <nav>
-      <router-link to="/">Home</router-link> |
-      <router-link to="/about">About</router-link>
-    </nav>
-    <router-view/>
+    <router-view></router-view>
   </div>
 </template>
+
+<script>
+import { getAllChannelsAPI } from '@/api'
+export default {
+  async created() {
+    try {
+      const res = await getAllChannelsAPI()
+      console.log(res)
+    } catch (err) {
+      console.error(err)
+    }
+  }
+}
+</script>
 
 <style lang="less">
 #app {
