@@ -38,15 +38,19 @@ export default {
     // 提交方法(form整体通过验证才会触发)
     async onSubmit(values) {
       // 可以直接用values(收集参数名和值)
-      console.log('submit', values)
-      console.log(this.user)
+      // console.log('submit', values)
+      // console.log(this.user)
       this.isloading = true
 
       try {
         const res = await loginAPI(this.user)
-        console.log(res)
+        // console.log(res)
         Notify({ type: 'success', message: '登录成功' })
         setToken(res.data.data.token)
+        // 跳转一定要写在最后->尽量最后执行
+        this.$router.replace({
+          path: '/layout/home'
+        })
       } catch (err) {
         // promise内ajax抛出错误，直接进入
         console.log(err)
