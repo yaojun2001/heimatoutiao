@@ -30,5 +30,46 @@ export const getAllChannelsAPI = () => {
 export const getUserChannelsAPI = () => request({
   url: '/v1_0/user/channels',
   method: 'GET',
-  Authorization: `Bearer ${getToken()}`
+  headers: {
+    Authorization: `Bearer ${getToken()}`
+  }
+})
+
+// 文章--获取文章新闻推荐列表
+export const getAllArticleListAPI = ({ channel_id, timestamp }) => request({
+  url: '/v1_0/articles',
+  method: 'GET',
+  headers: {
+    Authorization: `Bearer ${getToken()}`
+  },
+  params: { // 这里的参数，axios会帮你拼接在URL?后面（查询字符串）
+    channel_id,
+    timestamp
+  }
+})
+
+// 文章--不喜欢
+export const dislikeArticleAPI = ({ artId }) => request({
+  url: '/v1_0/article/dislikes',
+  method: 'POST',
+  headers: {
+    Authorization: `Bearer ${getToken()}`
+  },
+  data: {
+    target: artId
+  }
+})
+
+// 文章--举报
+export const reportsArticleAPI = ({ target, type, remark }) => request({
+  url: '/v1_0/article/reports',
+  method: 'POST',
+  headers: {
+    Authorization: `Bearer ${getToken()}`
+  },
+  data: {
+    target,
+    type,
+    remark
+  }
 })

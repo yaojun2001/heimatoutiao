@@ -2,9 +2,7 @@
 const key = 'hmtt-ovo'
 
 // 设置
-export const setToken = (token) => {
-  localStorage.setItem(key, token)
-}
+export const setToken = (token) => localStorage.setItem(key, token)
 
 // 获取
 export const getToken = () => localStorage.getItem(key)
