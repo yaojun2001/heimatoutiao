@@ -3,7 +3,7 @@
 // 逻辑页面，导入这个接口方法，就可以发起请求
 // 好处：统一管理
 import request from '@/utils/request.js'
-import { getToken } from '@/utils/token.js'
+// import { getToken } from '@/utils/token.js'
 
 // 登录---登录接口
 // axios内部，会把参数对象转成json字符串格式发给后台
@@ -29,19 +29,34 @@ export const getAllChannelsAPI = () => {
 // 注：用户没有登录，默认返回后台设置的默认频道
 export const getUserChannelsAPI = () => request({
   url: '/v1_0/user/channels',
-  method: 'GET',
-  headers: {
-    Authorization: `Bearer ${getToken()}`
+  method: 'GET'
+  // headers: {
+  //   Authorization: `Bearer ${getToken()}`
+  // }
+})
+
+// 频道管理--更新覆盖频道
+export const updateChannelsAPI = ({ channels }) => request({
+  url: '/v1_0/user/channels',
+  method: 'PUT',
+  data: {
+    channels // 用户已选频道数组
   }
+})
+
+// 频道管理- 删除用户指定的频道
+export const removeTheChannelAPI = ({ channelId }) => request({
+  url: `/v1_0/user/channels/${channelId}`,
+  method: 'DELETE'
 })
 
 // 文章--获取文章新闻推荐列表
 export const getAllArticleListAPI = ({ channel_id, timestamp }) => request({
   url: '/v1_0/articles',
   method: 'GET',
-  headers: {
-    Authorization: `Bearer ${getToken()}`
-  },
+  // headers: {
+  //   Authorization: `Bearer ${getToken()}`
+  // },
   params: { // 这里的参数，axios会帮你拼接在URL?后面（查询字符串）
     channel_id,
     timestamp
@@ -52,9 +67,9 @@ export const getAllArticleListAPI = ({ channel_id, timestamp }) => request({
 export const dislikeArticleAPI = ({ artId }) => request({
   url: '/v1_0/article/dislikes',
   method: 'POST',
-  headers: {
-    Authorization: `Bearer ${getToken()}`
-  },
+  // headers: {
+  //   Authorization: `Bearer ${getToken()}`
+  // },
   data: {
     target: artId
   }
@@ -64,9 +79,9 @@ export const dislikeArticleAPI = ({ artId }) => request({
 export const reportsArticleAPI = ({ target, type, remark }) => request({
   url: '/v1_0/article/reports',
   method: 'POST',
-  headers: {
-    Authorization: `Bearer ${getToken()}`
-  },
+  // headers: {
+  //   Authorization: `Bearer ${getToken()}`
+  // },
   data: {
     target,
     type,

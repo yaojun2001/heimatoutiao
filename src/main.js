@@ -3,8 +3,12 @@ import App from './App.vue'
 import router from './router'
 import store from './store'
 import 'amfe-flexible' // 引入flexible.js 设置根标签字体大小，做移动端的适配
-import { NavBar, Form, Field, Button, Tabbar, TabbarItem, Icon, Tab, Tabs, Cell, CellGroup, List, PullRefresh, Toast, ActionSheet } from 'vant'
+import { NavBar, Form, Field, Button, Tabbar, TabbarItem, Icon, Tab, Tabs, Cell, CellGroup, List, PullRefresh, Toast, ActionSheet, Popup, Row, Col, Badge } from 'vant'
 
+Vue.use(Row)
+Vue.use(Col)
+Vue.use(Badge)
+Vue.use(Popup)
 Vue.use(ActionSheet)
 
 Vue.use(Toast)

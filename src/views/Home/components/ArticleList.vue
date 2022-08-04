@@ -81,10 +81,18 @@ export default {
     },
     // 反馈--不感兴趣
     async disLikeFun(id) {
-      await dislikeArticleAPI({
-        artId: id
-      })
-      Notify({ type: 'success', message: '反馈成功' })
+      // 如果用try+catch 自己处理错误，内部throw就不会向控制台抛出打印错误，而是交给catch内自定义错误处理
+      // try+捕获同步代码的异常
+      // await 暂停同步任务，等待异步任务处理
+      try {
+        await dislikeArticleAPI({
+          artId: id
+        })
+        Notify({ type: 'success', message: '反馈成功' })
+        console.log('反馈成功')
+      } catch (err) {
+        console.log('反馈失败')
+      }
     },
     // 反馈--举报
     async reportArt(id, value) {
