@@ -7,7 +7,7 @@
           <img class="logo" src="@/assets/toutiao_logo.png" alt="">
         </template>
         <template #right>
-          <van-icon name="search" size="0.48rem" color="#ffffff" />
+          <van-icon name="search" size="0.48rem" color="#ffffff" @click="$router.push('/search')" />
         </template>
       </van-nav-bar>
     </div>

@@ -9,7 +9,7 @@
 </template>
 
 <script>
-import ArticleItem from './ArticleItem.vue'
+import ArticleItem from '../../../components/ArticleItem.vue'
 import { getAllArticleListAPI, dislikeArticleAPI, reportsArticleAPI } from '@/api/index.js'
 import { Notify } from 'vant'
 // 问题：网页刚打开，create里请求和onload里请求同时发送，请求的都是最新数据
