@@ -17,6 +17,20 @@ export const loginAPI = ({ mobile, code }) => request({
     code
   }
 })
+
+// 用户 -- 关注用户
+export const followingUserAPI = ({ targetUserId }) => request({
+  url: '/v1_0/user/followings',
+  method: 'POST',
+  data: {
+    target: targetUserId
+  }
+})
+// 用户 -- 取消关注用户
+export const cancelFollowedUserAPI = ({ targetUserId }) => request({
+  url: `/v1_0/user/followings/${targetUserId}`,
+  method: 'DELETE'
+})
 // 频道--获取所有频道
 export const getAllChannelsAPI = () => {
   return request({
@@ -87,6 +101,26 @@ export const reportsArticleAPI = ({ target, type, remark }) => request({
     type,
     remark
   }
+})
+
+// 文章--点赞
+export const articleLikeAPI = ({ article_id }) => request({
+  url: '/v1_0/article/likings',
+  method: 'POST',
+  data: {
+    target: article_id
+  }
+})
+// 文章-- 取消点赞
+export const articleLikeCancelAPI = ({ article_id }) => request({
+  url: `/v1_0/article/likings/${article_id}`,
+  method: 'DELETE'
+})
+
+// 文章详情-获取文章详情
+export const getArticleDetailAPI = ({ article_id }) => request({
+  url: `/v1_0/articles/${article_id}`,
+  method: 'GET'
 })
 
 // 搜素--联想菜单

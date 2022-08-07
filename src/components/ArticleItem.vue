@@ -32,7 +32,7 @@
               <span>{{ timeAgo(artObj.pubdate) }} </span>
             </div>
             <!-- 反馈按钮 -->
-            <van-icon name="cross" @click="show=true" v-if="isShow" />
+            <van-icon name="cross" @click.stop="show=true" v-if="isShow" />
           </div>
         </template>
 

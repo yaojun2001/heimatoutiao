@@ -2,13 +2,14 @@
   <div>
     <van-pull-refresh v-model="refreshing" @refresh="onRefresh">
       <van-list v-model="loading" :finished="finished" finished-text="没有更多了" @load="onLoad" :immediate-check="false" offset="50">
-        <ArticleItem v-for="obj in articleList" :key="obj.art_id" @reportEV="reportArt" @disLikeEV="disLikeFun" :artObj="obj"></ArticleItem>
+        <ArticleItem @click.native="ArticleItemClickFun(obj.art_id)" v-for="obj in articleList" :key="obj.art_id" @reportEV="reportArt" @disLikeEV="disLikeFun" :artObj="obj"></ArticleItem>
       </van-list>
     </van-pull-refresh>
   </div>
 </template>
 
 <script>
+// 事件修饰符 .native -> 给组件内根标签，绑定原生click 点击事件
 import ArticleItem from '../../../components/ArticleItem.vue'
 import { getAllArticleListAPI, dislikeArticleAPI, reportsArticleAPI } from '@/api/index.js'
 import { Notify } from 'vant'
@@ -106,6 +107,11 @@ export default {
       } catch (err) {
         Notify({ type: 'warning', message: '举报失败' })
       }
+    },
+    ArticleItemClickFun(id) {
+      this.$router.push({
+        path: `/article_detail?art_id=${id}`
+      })
     }
   },
   created() {

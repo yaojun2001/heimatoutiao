@@ -7,7 +7,7 @@
     </div>
     <!-- 搜索结果页，复用ArticleItem组件 -->
     <van-list v-model="loading" :finished="finished" finished-text="没有更多了" @load="onLoad" :immediate-check="false" offset="50">
-    <ArticleItem v-for="obj in articleList" :key="obj.id" :artObj="obj" :isShow="false"></ArticleItem>
+    <ArticleItem @click.native="articleItemClickFun(obj.art_id)" v-for="obj in articleList" :key="obj.art_id" :artObj="obj" :isShow="false"></ArticleItem>
     </van-list>
   </div>
 </template>
@@ -58,6 +58,11 @@ export default {
         // console.log(res)
         this.loading = false
       }
+    },
+    articleItemClickFun(id) {
+      this.$router.push({
+        path: `/article_detail?art_id=${id}`
+      })
     }
   }
 }
