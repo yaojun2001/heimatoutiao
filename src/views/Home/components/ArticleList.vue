@@ -51,7 +51,7 @@ export default {
         // res.data.data.channels[this.active].id
         timestamp: this.theTime
       })
-      console.log(res)
+      // console.log(res)
       this.articleList = [...this.articleList, ...res.data.data.results]
       // console.log(res2.data.data.results)
 

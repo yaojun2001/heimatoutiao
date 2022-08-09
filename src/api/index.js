@@ -117,6 +117,19 @@ export const articleLikeCancelAPI = ({ article_id }) => request({
   method: 'DELETE'
 })
 
+// 文章 -- 收藏
+export const articleCollectionAPI = ({ tgArt_id }) => request({
+  url: '/v1_0/article/collections',
+  method: 'POST',
+  data: {
+    target: tgArt_id
+  }
+})
+// 文章 -- 取消收藏
+export const articleCollectionCancelAPI = ({ tgArt_id }) => request({
+  url: `/v1_0/article/collections/${tgArt_id}`,
+  method: 'DELETE'
+})
 // 文章详情-获取文章详情
 export const getArticleDetailAPI = ({ article_id }) => request({
   url: `/v1_0/articles/${article_id}`,

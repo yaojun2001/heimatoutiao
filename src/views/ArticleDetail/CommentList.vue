@@ -5,48 +5,49 @@
     <div class="cmt-list" :class="{'art-cmt-container-1':isShow,'art-cmt-container-2':!isShow}">
       <van-list v-model="loading" :finished="finished" finished-text="没有更多评论了" @load="onLoad" :immediate-check="false" offset="50">
 
-      <!-- 评论的 Item 项 -->
-      <div v-for="obj in commentsList" :key="obj.com_id" class="cmt-item">
-        <!-- 头部区域 -->
-        <div class="cmt-header">
-          <!-- 头部左侧 -->
-          <div class="cmt-header-left">
-            <img :src="obj.aut_photo" alt="" class="avatar">
-            <span class="uname">{{ obj.aut_name}}</span>
+        <!-- 评论的 Item 项 -->
+        <div v-for="obj in commentsList" :key="obj.com_id" class="cmt-item">
+          <!-- 头部区域 -->
+          <div class="cmt-header">
+            <!-- 头部左侧 -->
+            <div class="cmt-header-left">
+              <img :src="obj.aut_photo" alt="" class="avatar">
+              <span class="uname">{{ obj.aut_name}}</span>
+            </div>
+            <!-- 头部右侧 -->
+            <div class="cmt-header-right">
+              <van-icon @click="likeClickFun(obj)" v-if="obj.is_liking" name="like" size="16" color="red" />
+              <van-icon @click="likeClickFun(obj)" v-else name="like-o" size="16" color="gray" />
+            </div>
           </div>
-          <!-- 头部右侧 -->
-          <div class="cmt-header-right">
-            <van-icon @click="likeClickFun(obj)" v-if="obj.is_liking" name="like" size="16" color="red" />
-            <van-icon @click="likeClickFun(obj)" v-else name="like-o" size="16" color="gray" />
+          <!-- 主体区域 -->
+          <div class="cmt-body" v-html=" obj.content">
           </div>
+          <!-- 尾部区域 -->
+          <div class="cmt-footer">{{timeAgo(obj.pubdate)}}</div>
         </div>
-        <!-- 主体区域 -->
-        <div class="cmt-body" v-html=" obj.content">
-        </div>
-        <!-- 尾部区域 -->
-        <div class="cmt-footer">{{timeAgo(obj.pubdate)}}</div>
-      </div>
       </van-list>
     </div>
     <div>
-          <!-- 底部添加评论区域 - 1 -->
-    <div v-if="isShow" class="add-cmt-box van-hairline--top">
-      <van-icon name="arrow-left" size="0.48rem" @click="$router.back()" />
-      <div class="ipt-cmt-div" @click="changeComment">发表评论</div>
-      <div class="icon-box">
-        <van-badge :content="commentCount===0? '':commentCount" max="99">
-          <van-icon @click="commentClickFun" name="comment-o" size="0.53333334rem" />
-        </van-badge>
-        <van-icon name="star-o" size="0.53333334rem" />
-        <van-icon name="share-o" size="0.53333334rem" />
+      <!-- 底部添加评论区域 - 1 -->
+      <div v-if="isShow" class="add-cmt-box van-hairline--top">
+        <van-icon name="arrow-left" size="0.48rem" @click="$router.back()" />
+        <div class="ipt-cmt-div" @click="changeComment">发表评论</div>
+        <div class="icon-box">
+          <van-badge :content="commentCount===0? '':commentCount" max="99">
+            <van-icon @click="commentClickFun" name="comment-o" size="0.53333334rem" />
+          </van-badge>
+          <van-icon v-if="isCollected" @click="collectionClickFun" color="rgb(252,85,49)" name="star" size="0.53333334rem" />
+          <van-icon v-else @click="collectionClickFun" name="star-o" size="0.53333334rem" />
+          <van-icon name="share-o" size="0.53333334rem" />
+        </div>
       </div>
-    </div>
 
-    <!-- 底部添加评论区域 - 2 -->
-    <div v-else class="cmt-box van-hairline--top">
-      <textarea v-infoc @blur="changeComment" v-model.trim="comText" placeholder="友善评论、理性发言、阳光心灵"></textarea>
-      <van-button type="default" :disabled="comText.length === 0" @click="sendCommentFun">发布</van-button>
-    </div>
+      <!-- 底部添加评论区域 - 2 -->
+      <div v-else class="cmt-box van-hairline--top">
+        <textarea v-infoc @blur="changeComment" v-model.trim="comText" placeholder="友善评论、理性发言、阳光心灵"></textarea>
+        <van-button type="default" :disabled="comText.length === 0" @click="sendCommentFun">发布</van-button>
+      </div>
     </div>
   </div>
 </template>
@@ -62,7 +63,9 @@ import {
 import { Notify } from 'vant'
 export default {
   name: 'HeimatoutiaoCommentList',
-  // props: ['art_id'],
+  props: {
+    isCollected: Boolean
+  },
 
   data() {
     return {
@@ -74,6 +77,7 @@ export default {
       lastId: null, // 做分页
       loading: false,
       finished: false
+      // isCollection: this.isCollected
     }
   },
   async created() {
@@ -170,6 +174,12 @@ export default {
       } else {
         this.loading = false
       }
+    },
+    // 收藏 -- 点击事件--收藏文章
+    collectionClickFun() {
+      // this.isCollection = !this.isCollection
+      this.$emit('isCollect')
+      // this.articleObj.is_collected
     }
   }
 }

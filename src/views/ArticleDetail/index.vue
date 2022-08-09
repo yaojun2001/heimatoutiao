@@ -43,7 +43,7 @@
     <van-divider></van-divider>
     <!-- 文章评论部分 -->
     <div>
-      <CommentList></CommentList>
+      <CommentList @isCollect="changeArtCollecte" :isCollected="articleObj.is_collected"></CommentList>
     </div>
   </div>
 </template>
@@ -55,7 +55,9 @@ import {
   followingUserAPI,
   cancelFollowedUserAPI,
   articleLikeAPI,
-  articleLikeCancelAPI
+  articleLikeCancelAPI,
+  articleCollectionCancelAPI,
+  articleCollectionAPI
 } from '@/api'
 import { Notify } from 'vant'
 import CommentList from './CommentList.vue'
@@ -71,7 +73,7 @@ export default {
     const res = await getArticleDetailAPI({
       article_id: this.$route.query.art_id
     })
-    // console.log(res)
+    console.log(res)
     this.articleObj = res.data.data
   },
   methods: {
@@ -122,6 +124,25 @@ export default {
         console.log(res)
       }
       console.log(this.articleObj)
+    },
+    async changeArtCollecte() {
+      this.articleObj.is_collected = !this.articleObj.is_collected
+      if (this.articleObj.is_collected === true) {
+        // 调 收藏 接口
+        const res = await articleCollectionAPI({
+          tgArt_id: this.$route.query.art_id
+        })
+        // this.articleObj.is_collected = true
+        console.log(res)
+      } else {
+        // 调 取消收藏 接口
+
+        const res = await articleCollectionCancelAPI({
+          tgArt_id: this.$route.query.art_id
+        })
+        // this.articleObj.is_collected = false
+        console.log(res)
+      }
     }
   },
   components: { CommentList }
