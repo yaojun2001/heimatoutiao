@@ -37,8 +37,16 @@ const directiveObj = {
     Vue.directive('infoc', {
       // inserted 方法名
       inserted(el) {
-        const theInput = el.querySelector('input')
-        theInput.focus()
+        // el 代表指令所在标签
+        // 原生DOM.nodeName 拿到标签名(大写字符串)
+        if (el.nodeName === 'INPUT' || el.nodeName === 'TEXTAREA') {
+          el.focus()
+        } else {
+          const theInput = el.querySelector('input')
+          if (theInput) theInput.focus()
+          const theTextArea = el.querySelector('TextArea')
+          if (theTextArea) theTextArea.focus()
+        }
       }
     })
   }

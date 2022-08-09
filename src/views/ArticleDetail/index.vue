@@ -11,7 +11,10 @@
       <!-- 用户信息 -->
       <van-cell center :title="articleObj.aut_name" :label="timeAgo(articleObj.pubdate)">
         <template #icon>
-          <img :src="articleObj.aut_photo" alt="" class="avatar">
+          <van-image :src="articleObj.aut_photo" alt="" class="avatar">
+            <template v-slot:error>图片加载失败</template>
+          </van-image>
+          <!-- <img :src="articleObj.aut_photo" alt="" class="avatar"> -->
         </template>
         <template #default>
           <div>
@@ -36,23 +39,34 @@
         <van-button @click="likeArticleClickFun" v-else icon="good-job-o" type="danger" plain size="small">点赞</van-button>
       </div>
     </div>
+    <!-- 分割线 -->
+    <van-divider></van-divider>
+    <!-- 文章评论部分 -->
+    <div>
+      <CommentList></CommentList>
+    </div>
   </div>
 </template>
 
 <script>
 import { timeAgo } from '@/utils/date.js'
-import { getArticleDetailAPI, followingUserAPI, cancelFollowedUserAPI, articleLikeAPI, articleLikeCancelAPI } from '@/api'
+import {
+  getArticleDetailAPI,
+  followingUserAPI,
+  cancelFollowedUserAPI,
+  articleLikeAPI,
+  articleLikeCancelAPI
+} from '@/api'
 import { Notify } from 'vant'
+import CommentList from './CommentList.vue'
 export default {
   name: 'HeimatoutiaoIndex',
-
   data() {
     return {
       articleObj: {}
     }
   },
-
-  mounted() { },
+  mounted() {},
   async created() {
     const res = await getArticleDetailAPI({
       article_id: this.$route.query.art_id
@@ -60,7 +74,6 @@ export default {
     // console.log(res)
     this.articleObj = res.data.data
   },
-
   methods: {
     timeAgo,
     // 关注/取关 -> 作者
@@ -82,7 +95,6 @@ export default {
         // 用户 点在 '关注' 按钮上
         // 页面 -> 显示 '关注' 按钮
         Notify({ type: 'warning', message: '已取消关注' })
-
         const res = await cancelFollowedUserAPI({
           targetUserId: this.articleObj.aut_id
         })
@@ -111,7 +123,8 @@ export default {
       }
       console.log(this.articleObj)
     }
-  }
+  },
+  components: { CommentList }
 }
 </script>
 
