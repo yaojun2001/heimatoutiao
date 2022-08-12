@@ -3,8 +3,12 @@ import App from './App.vue'
 import router from './router'
 import store from './store'
 import 'amfe-flexible' // 引入flexible.js 设置根标签字体大小，做移动端的适配
-import { NavBar, Form, Field, Button, Tabbar, TabbarItem, Icon, Tab, Tabs, Cell, CellGroup, List, PullRefresh, Toast, ActionSheet, Popup, Row, Col, Badge, Search, Image as VanImage, Divider } from 'vant'
+import { NavBar, Form, Field, Button, Tabbar, TabbarItem, Icon, Tab, Tabs, Cell, CellGroup, List, PullRefresh, Toast, ActionSheet, Popup, Row, Col, Badge, Search, Image as VanImage, Divider, Tag, Image, Dialog, DatetimePicker } from 'vant'
 
+Vue.use(DatetimePicker)
+Vue.use(Dialog)
+Vue.use(Image)
+Vue.use(Tag)
 Vue.use(Divider)
 Vue.use(VanImage)
 Vue.use(Search)
@@ -35,10 +39,23 @@ Vue.use(NavBar)
 const directiveObj = {
   install(Vue) {
     Vue.directive('infoc', {
+      // 指令所在标签，被插入到真实DOM时才触发
+      // 如果标签用display:none隐藏再出现，不会再触发
       // inserted 方法名
       inserted(el) {
         // el 代表指令所在标签
         // 原生DOM.nodeName 拿到标签名(大写字符串)
+        if (el.nodeName === 'INPUT' || el.nodeName === 'TEXTAREA') {
+          el.focus()
+        } else {
+          const theInput = el.querySelector('input')
+          if (theInput) theInput.focus()
+          const theTextArea = el.querySelector('TextArea')
+          if (theTextArea) theTextArea.focus()
+        }
+      },
+      // 更新时触发
+      update(el) {
         if (el.nodeName === 'INPUT' || el.nodeName === 'TEXTAREA') {
           el.focus()
         } else {

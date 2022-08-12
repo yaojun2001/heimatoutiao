@@ -21,7 +21,7 @@
             </div>
           </div>
           <!-- 主体区域 -->
-          <div class="cmt-body" v-html=" obj.content">
+          <div class="cmt-body" v-html="obj.content">
           </div>
           <!-- 尾部区域 -->
           <div class="cmt-footer">{{timeAgo(obj.pubdate)}}</div>

@@ -6,7 +6,7 @@ import { Notify } from 'vant'
 // import store from '@/store'
 import { getToken } from '@/utils/token.js'
 const axios = theAxios.create({
-  baseURL: 'http://toutiao.itheima.net',
+  baseURL: 'http://geek.itheima.net',
   timeout: 20000 // 20秒超时
 })
 
