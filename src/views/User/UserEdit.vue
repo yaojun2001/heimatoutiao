@@ -32,6 +32,7 @@
 import { getUserProfileAPI, editUserPhotoAPI, editUserProfileAPI } from '@/api'
 import { Notify } from 'vant'
 import { formatDateToString } from '@/utils/date.js'
+import { mapMutations } from 'vuex'
 export default {
   name: 'HeimatoutiaoUserEdit',
 
@@ -51,11 +52,16 @@ export default {
     const res = await getUserProfileAPI()
     console.log(res)
     this.user = res.data.data
+    // 方式一：
+    // this.$store.commit('SET_USERPHOTO', res.data.data.photo)
+    // 方式二：
+    this.SET_USERPHOTO(res.data.data.photo)
   },
 
   mounted() {},
 
   methods: {
+    ...mapMutations(['SET_USERPHOTO']),
     // 图片点击事件--模拟点击 input-file
     photoClickChange() {
       this.$refs.iptFile.click()
@@ -69,8 +75,11 @@ export default {
       fdObj.append('photo', e.target.files[0]) // 添加 键值对
       const res = await editUserPhotoAPI(fdObj)
       this.user.photo = res.data.data.photo
-
       // console.log(res)
+      // 方式一：
+      // this.$store.commit('SET_USERPHOTO', res.data.data.photo)
+      // 方式二：
+      this.SET_USERPHOTO(res.data.data.photo)
     },
     // 点击姓名--跳出弹框+自动聚焦
     nameClickFun() {

@@ -36,7 +36,7 @@
     <!-- 操作面板 -->
     <van-cell-group class="action-card">
       <van-cell icon="edit" title="编辑资料" is-link to="/user_edit" />
-      <van-cell icon="chat-o" title="小思同学" is-link />
+      <van-cell icon="chat-o" title="小思同学" is-link to="/user_chat" />
       <van-cell icon="warning-o" title="退出登录" @click="quitLoginFun" is-link />
     </van-cell-group>
   </div>
@@ -58,6 +58,7 @@ export default {
     const res = await getTheUserAPI()
     console.log(res)
     this.userObj = res.data.data
+    this.$store.commit('SET_USERPHOTO', res.data.data.photo)
   },
 
   mounted() {},
