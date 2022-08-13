@@ -18,6 +18,15 @@ export const loginAPI = ({ mobile, code }) => request({
   }
 })
 
+// 用户--刷新用户token
+export const getUserTokenAPI = () => request({
+  url: '/v1_0/authorizations',
+  method: 'PUT',
+  headers: {
+    Authorization: 'Bearer ' + localStorage.getItem('refresh_token')
+  }
+})
+
 // 用户 -- 关注用户
 export const followingUserAPI = ({ targetUserId }) => request({
   url: '/v1_0/user/followings',

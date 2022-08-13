@@ -1,5 +1,6 @@
 import Vue from 'vue'
 import VueRouter from 'vue-router'
+import { getToken } from '@/utils/token.js'
 const Login = () => import(/* webpackChunkName: "Login" */ '@/views/Login')
 const Layout = () => import(/* webpackChunkName: "Layout" */ '@/views/Layout')
 const Home = () => import(/* webpackChunkName: "Home" */ '@/views/Home')
@@ -29,7 +30,18 @@ const routes = [
   },
   {
     path: '/login',
-    component: Login
+    component: Login,
+    // 路由独享守卫 或使用全局守卫:加to.path 当跳转要跳转到/login页面前判断
+    beforeEnter: (to, from, next) => {
+      // ...
+      if (getToken()?.length > 0) {
+        // 详情页无法返回首页
+        // next(false)
+        next('/layout/home')
+      } else {
+        next()
+      }
+    }
   },
   {
     path: '/layout',
@@ -70,5 +82,15 @@ const routes = [
 const router = new VueRouter({
   routes
 })
+
+// 全局前置守卫
+// router.beforeEach((to, from, next) => {
+//   if (getToken()?.length > 0 && to.path === '/login') {
+//     next(false)
+//     next('/layout/home')
+//   } else {
+//     next()
+//   }
+// })
 
 export default router

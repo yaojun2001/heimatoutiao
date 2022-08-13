@@ -44,9 +44,10 @@ export default {
 
       try {
         const res = await loginAPI(this.user)
-        // console.log(res)
+        console.log(res) // res.data.data 中存了token 和refresh_token
         Notify({ type: 'success', message: '登录成功' })
         setToken(res.data.data.token)
+        localStorage.setItem('refresh_token', res.data.data.refresh_token)
         // 跳转一定要写在最后->尽量最后执行
         this.$router.replace({
           path: '/layout/home'
