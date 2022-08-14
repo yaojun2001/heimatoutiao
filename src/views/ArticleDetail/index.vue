@@ -62,7 +62,7 @@ import {
 import { Notify } from 'vant'
 import CommentList from './CommentList.vue'
 export default {
-  name: 'HeimatoutiaoIndex',
+  name: 'ArticleDetailIndex',
   data() {
     return {
       articleObj: {}

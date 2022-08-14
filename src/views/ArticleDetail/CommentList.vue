@@ -62,7 +62,7 @@ import {
 } from '@/api'
 import { Notify } from 'vant'
 export default {
-  name: 'HeimatoutiaoCommentList',
+  name: 'ArticleCommentList',
   props: {
     isCollected: Boolean
   },

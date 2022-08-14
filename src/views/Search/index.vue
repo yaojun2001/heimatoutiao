@@ -33,7 +33,7 @@
 import { suggestListAPI } from '@/api/index.js'
 import { Notify } from 'vant'
 export default {
-  name: 'HeimatoutiaoIndex',
+  name: 'SearchIndex',
 
   data() {
     return {

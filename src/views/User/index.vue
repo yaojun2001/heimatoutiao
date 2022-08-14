@@ -7,10 +7,10 @@
       <van-cell>
         <!-- 使用 title 插槽来自定义标题 -->
         <template #icon>
-          <img :src="userObj.photo" alt="" class="avatar">
+          <img :src="$store.state.userPhoto" alt="" class="avatar">
         </template>
         <template #title>
-          <span class="username">{{ userObj.name  }}</span>
+          <span class="username" v-text="userObj.name" > </span>
         </template>
         <template #label>
           <van-tag color="#fff" text-color="#007bff">申请认证</van-tag>
@@ -47,7 +47,7 @@ import { getTheUserAPI } from '@/api'
 import { Dialog } from 'vant'
 import { removeToken } from '@/utils/token.js'
 export default {
-  name: 'HeimatoutiaoIndex',
+  name: 'UserIndex',
 
   data() {
     return {
@@ -56,9 +56,10 @@ export default {
   },
   async created() {
     const res = await getTheUserAPI()
-    console.log(res)
+    // console.log(res)
     this.userObj = res.data.data
     this.$store.commit('SET_USERPHOTO', res.data.data.photo)
+    this.$store.commit('SET_USERNAME', res.data.data.name)
   },
 
   mounted() {},
@@ -82,6 +83,19 @@ export default {
     // 编辑资料 -- 点击事件--跳转路由
     editClickFun() {
       this.$router.push('/user_edit')
+    }
+  },
+  watch: {
+    userObj: {
+      async handler(cur, old) {
+        // console.log(cur)
+        // console.log(old)
+        const res = await getTheUserAPI()
+        // console.log(res)
+        this.userObj = res.data.data
+      },
+      immediate: true,
+      deep: true
     }
   }
 }

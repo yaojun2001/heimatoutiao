@@ -34,7 +34,7 @@ import { Notify } from 'vant'
 import { formatDateToString } from '@/utils/date.js'
 import { mapMutations } from 'vuex'
 export default {
-  name: 'HeimatoutiaoUserEdit',
+  name: 'UserEdit',
 
   data() {
     return {
@@ -55,13 +55,14 @@ export default {
     // 方式一：
     // this.$store.commit('SET_USERPHOTO', res.data.data.photo)
     // 方式二：
-    this.SET_USERPHOTO(res.data.data.photo)
+    // this.SET_USERPHOTO(res.data.data.photo)
+    // this.SET_USERNAME(res.data.data.name)
   },
 
   mounted() {},
 
   methods: {
-    ...mapMutations(['SET_USERPHOTO']),
+    ...mapMutations(['SET_USERPHOTO', 'SET_USERNAME']),
     // 图片点击事件--模拟点击 input-file
     photoClickChange() {
       this.$refs.iptFile.click()
@@ -102,6 +103,7 @@ export default {
             name: this.userName
           })
           this.user.name = this.userName
+          this.SET_USERNAME(this.userName)
           done()
         } else {
           // 正则校验未通过

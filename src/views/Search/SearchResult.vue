@@ -17,7 +17,7 @@ import { searchResultAPI } from '@/api'
 import ArticleItem from '../../components/ArticleItem.vue'
 
 export default {
-  name: 'HeimatoutiaoSearchResult',
+  name: 'SearchResult',
 
   data() {
     return {
