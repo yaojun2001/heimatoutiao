@@ -45,7 +45,7 @@
 
       <!-- 底部添加评论区域 - 2 -->
       <div v-else class="cmt-box van-hairline--top">
-        <textarea v-infoc @blur="changeComment" v-model.trim="comText" placeholder="友善评论、理性发言、阳光心灵"></textarea>
+        <textarea  v-infoc @blur="changeComment" v-model.trim="comText" placeholder="友善评论、理性发言、阳光心灵"></textarea>
         <van-button type="default" :disabled="comText.length === 0" @click="sendCommentFun">发布</van-button>
       </div>
     </div>
