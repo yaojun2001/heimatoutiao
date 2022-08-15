@@ -1,6 +1,11 @@
 import Vue from 'vue'
-import { NavBar, Form, Field, Button, Tabbar, TabbarItem, Icon, Tab, Tabs, Cell, CellGroup, List, PullRefresh, Toast, ActionSheet, Popup, Row, Col, Badge, Search, Image as VanImage, Divider, Tag, Image, Dialog, DatetimePicker } from 'vant'
+import { NavBar, Form, Field, Button, Tabbar, TabbarItem, Icon, Tab, Tabs, Cell, CellGroup, List, PullRefresh, Toast, ActionSheet, Popup, Row, Col, Badge, Search, Image as VanImage, Divider, Tag, Image, Dialog, DatetimePicker, Loading, Lazyload } from 'vant'
 
+Vue.use(Lazyload, {
+  preload: 0.8,
+  error: 'https://img2.baidu.com/it/u=1928736049,3128591086&fm=253&fmt=auto&app=138&f=JPEG?w=500&h=333'
+})
+Vue.use(Loading)
 Vue.use(DatetimePicker)
 Vue.use(Dialog)
 Vue.use(Image)

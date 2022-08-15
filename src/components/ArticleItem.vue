@@ -8,19 +8,19 @@
             <!-- 标题 -->
             <span>{{ artObj.title }}</span>
             <!-- 单图 -->
-            <!-- <img v-if="artObj.cover.type === 1" class="thumb" :src="artObj.cover.images[0]" alt="" /> -->
-            <van-image v-if="artObj.cover.type === 1" class="thumb" :src="artObj.cover.images[0]">
+            <img v-if="artObj.cover.type === 1" class="thumb" v-lazy="artObj.cover.images[0]" alt="" />
+            <!-- <van-image lazy-load v-if="artObj.cover.type === 1" class="thumb" :src="artObj.cover.images[0]">
               <template v-slot:error>图片加载失败</template>
-            </van-image>
+            </van-image> -->
             <!-- 标签 -->
             <!-- <van-tag type="danger">新</van-tag> -->
           </div>
           <!-- 多图 -->
           <div v-if="artObj.cover.type>1" class="thumb-box">
-            <!-- <img v-for="(imgUrl, index) in artObj.cover.images" :key="index" class="thumb" :src="imgUrl" alt="" /> -->
-            <van-image v-for="(imgUrl, index) in artObj.cover.images" :key="index" class="thumb" :src="imgUrl" alt="">
+            <img v-for="(imgUrl, index) in artObj.cover.images" :key="index" class="thumb" v-lazy="imgUrl" alt="" />
+            <!-- <van-image lazy-load v-for="(imgUrl, index) in artObj.cover.images" :key="index" class="thumb" :src="imgUrl" alt="">
               <template v-slot:error>图片加载失败</template>
-            </van-image>
+            </van-image> -->
           </div>
         </template>
         <!-- label区域的插槽  -->

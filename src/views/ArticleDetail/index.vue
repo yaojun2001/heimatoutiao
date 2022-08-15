@@ -2,48 +2,52 @@
   <div>
     <!-- Header 区域 -->
     <van-nav-bar fixed title="文章详情" left-arrow @click-left="$router.back()" />
+    <!-- 加载中 -->
+    <van-loading v-if="Object.keys(articleObj).length === 0" size="24px" type="spinner" color="#1989fa">文章正在加载中...</van-loading>
 
-    <!-- 文章信息区域 -->
-    <div class="article-container">
-      <!-- 文章标题 -->
-      <h1 class="art-title">{{ articleObj.title }}</h1>
+    <div v-else>
+      <!-- 文章信息区域 -->
+      <div class="article-container">
+        <!-- 文章标题 -->
+        <h1 class="art-title">{{ articleObj.title }}</h1>
 
-      <!-- 用户信息 -->
-      <van-cell center :title="articleObj.aut_name" :label="timeAgo(articleObj.pubdate)">
-        <template #icon>
-          <van-image :src="articleObj.aut_photo" alt="" class="avatar">
-            <template v-slot:error>图片加载失败</template>
-          </van-image>
-          <!-- <img :src="articleObj.aut_photo" alt="" class="avatar"> -->
-        </template>
-        <template #default>
-          <div>
-            <van-button @click="followedClickFun" v-if="articleObj.is_followed" type="info" size="mini">已关注</van-button>
-            <van-button @click="followedClickFun" v-else icon="plus" type="info" size="mini" plain>关注</van-button>
-          </div>
-        </template>
-      </van-cell>
+        <!-- 用户信息 -->
+        <van-cell center :title="articleObj.aut_name" :label="timeAgo(articleObj.pubdate)">
+          <template #icon>
+            <van-image lazy-load :src="articleObj.aut_photo" alt="" class="avatar">
+              <template v-slot:error>图片加载失败</template>
+            </van-image>
+            <!-- <img v-lazy="articleObj.aut_photo" alt="" class="avatar"> -->
+          </template>
+          <template #default>
+            <div>
+              <van-button @click="followedClickFun" v-if="articleObj.is_followed" type="info" size="mini">已关注</van-button>
+              <van-button @click="followedClickFun" v-else icon="plus" type="info" size="mini" plain>关注</van-button>
+            </div>
+          </template>
+        </van-cell>
 
+        <!-- 分割线 -->
+        <van-divider></van-divider>
+
+        <!-- 文章内容 -->
+        <div class="art-content" v-html="articleObj.content"></div>
+
+        <!-- 分割线 -->
+        <van-divider>End</van-divider>
+
+        <!-- 点赞 -->
+        <div class="like-box">
+          <van-button @click="likeArticleClickFun" v-if="articleObj.attitude === 1" icon="good-job" type="danger" size="small">已点赞</van-button>
+          <van-button @click="likeArticleClickFun" v-else icon="good-job-o" type="danger" plain size="small">点赞</van-button>
+        </div>
+      </div>
       <!-- 分割线 -->
       <van-divider></van-divider>
-
-      <!-- 文章内容 -->
-      <div class="art-content" v-html="articleObj.content"></div>
-
-      <!-- 分割线 -->
-      <van-divider>End</van-divider>
-
-      <!-- 点赞 -->
-      <div class="like-box">
-        <van-button @click="likeArticleClickFun" v-if="articleObj.attitude === 1" icon="good-job" type="danger" size="small">已点赞</van-button>
-        <van-button @click="likeArticleClickFun" v-else icon="good-job-o" type="danger" plain size="small">点赞</van-button>
+      <!-- 文章评论部分 -->
+      <div>
+        <CommentList @isCollect="changeArtCollecte" :isCollected="articleObj.is_collected"></CommentList>
       </div>
-    </div>
-    <!-- 分割线 -->
-    <van-divider></van-divider>
-    <!-- 文章评论部分 -->
-    <div>
-      <CommentList @isCollect="changeArtCollecte" :isCollected="articleObj.is_collected"></CommentList>
     </div>
   </div>
 </template>
@@ -194,5 +198,10 @@ export default {
 .like-box {
   display: flex;
   justify-content: center;
+}
+
+.van-loading{
+  text-align: center;
+  top: 47px;
 }
 </style>
