@@ -66,7 +66,9 @@ axios.interceptors.response.use(function(response) {
     Notify({ type: 'warning', message: '登录过期，请重新登录' })
     removeToken()
     localStorage.removeItem('refresh_token')
-    router.replace('/login')
+    router.replace(`/login?path=${router.currentRoute.fullPath}`)
+    // router.replace('/login')
+    // console.log(router.currentRoute.fullPath) // /article_detail?art_id=7936
   }
 
   return Promise.reject(error)

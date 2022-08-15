@@ -50,7 +50,7 @@ export default {
         localStorage.setItem('refresh_token', res.data.data.refresh_token)
         // 跳转一定要写在最后->尽量最后执行
         this.$router.replace({
-          path: '/layout/home'
+          path: this.$route.query.path || '/layout/home'
         })
       } catch (err) {
         // promise内ajax抛出错误，直接进入

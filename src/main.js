@@ -3,6 +3,7 @@ import App from './App.vue'
 import router from './router'
 import store from './store'
 import 'amfe-flexible' // 引入flexible.js 设置根标签字体大小，做移动端的适配
+import 'highlight.js/styles/default.css' // 代码高亮 的样式
 import { NavBar, Form, Field, Button, Tabbar, TabbarItem, Icon, Tab, Tabs, Cell, CellGroup, List, PullRefresh, Toast, ActionSheet, Popup, Row, Col, Badge, Search, Image as VanImage, Divider, Tag, Image, Dialog, DatetimePicker } from 'vant'
 
 Vue.use(DatetimePicker)
