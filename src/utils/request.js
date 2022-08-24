@@ -6,6 +6,7 @@ import { Notify } from 'vant'
 // import store from '@/store'
 import { getUserTokenAPI } from '@/api'
 import { getToken, removeToken, setToken } from '@/utils/token.js'
+import { removeStorage } from './storage'
 const axios = theAxios.create({
   baseURL: 'http://geek.itheima.net',
   timeout: 20000 // 20秒超时
@@ -65,7 +66,7 @@ axios.interceptors.response.use(function(response) {
     // refresh_token 也过期了
     Notify({ type: 'warning', message: '登录过期，请重新登录' })
     removeToken()
-    localStorage.removeItem('refresh_token')
+    removeStorage('refresh_token')
     router.replace(`/login?path=${router.currentRoute.fullPath}`)
     // router.replace('/login')
     // console.log(router.currentRoute.fullPath) // /article_detail?art_id=7936

@@ -1,4 +1,5 @@
 import request from '@/utils/request.js'
+import { getStorage } from '@/utils/storage'
 
 // 登录---登录接口
 // axios内部，会把参数对象转成json字符串格式发给后台
@@ -18,7 +19,7 @@ export const getUserTokenAPI = () => request({
   url: '/v1_0/authorizations',
   method: 'PUT',
   headers: {
-    Authorization: 'Bearer ' + localStorage.getItem('refresh_token')
+    Authorization: 'Bearer ' + getStorage('refresh_token')
   }
 })
 

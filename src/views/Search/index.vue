@@ -32,6 +32,7 @@
 <script>
 import { suggestListAPI } from '@/api/index.js'
 import { Notify } from 'vant'
+import { getStorage, setStorage } from '@/utils/storage.js'
 export default {
   name: 'SearchIndex',
 
@@ -40,7 +41,7 @@ export default {
       kw: '', // 搜索关键字
       timer: null, //
       suggestList: [],
-      historyList: JSON.parse(localStorage.getItem('hisList')) || [] // 搜索历史
+      historyList: JSON.parse(getStorage('hisList')) || [] // 搜索历史
     }
   },
 
@@ -132,10 +133,10 @@ export default {
         // 特点：你传入的数组类型，如果有重复元素，会自动清理重复的元素，返回无重复的Set
         // Set类型对象 -> Array数组类型
         // 如果值是对象，比较的是对象的内存地址
-        // const theSet = new Set(this.historyList)
-        // const hisArr = Array.from(theSet)
-        // localStorage.setItem('hisList', JSON.stringify(hisArr))
-        localStorage.setItem('hisList', JSON.stringify([...new Set(this.historyList)]))
+        const theSet = new Set(this.historyList)
+        const hisArr = Array.from(theSet)
+        setStorage('hisList', JSON.stringify(hisArr))
+        // setStorage('hisList', JSON.stringify([...new Set(this.historyList)]))
       }
     }
   }
