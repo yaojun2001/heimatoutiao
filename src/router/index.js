@@ -49,7 +49,10 @@ const routes = [
     children: [
       {
         path: 'home',
-        component: Home
+        component: Home,
+        meta: {
+          scrollT: 0 // 保存离开时，滚动条的位置
+        }
       },
       {
         path: 'user',

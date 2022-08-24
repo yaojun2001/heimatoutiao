@@ -13,7 +13,7 @@
     </div>
     <!-- tab 导航栏 -->
     <div class="home-tab">
-      <van-tabs v-model="channelId" animated sticky offset-top="1.226667rem">
+      <van-tabs v-model="channelId" animated sticky @change="channelIdChangeFun" offset-top="1.226667rem">
         <van-tab :title="obj.name" v-for="obj in userChannelsList" :key="obj.id" :name="obj.id">
           <ArticleList :channelId="channelId"></ArticleList>
         </van-tab>
@@ -44,7 +44,8 @@ export default {
       channelId: 0, // tab导航-激活频道的ID，默认为推荐
       userChannelsList: [], // 用户选择频道列表
       allChannelsList: [], // 所有频道列表
-      show: false // 频道弹出层显示/隐藏
+      show: false, // 频道弹出层显示/隐藏
+      channelScrollTop: {}
       // articleList: []
     }
   },
@@ -123,9 +124,9 @@ export default {
     // + 号点击 展示 弹出层
     showPopup() {
       this.show = true
-    }
+    },
     // tabs 切换的事件 -> 获取文章列表数据
-    // async channelIdChangeFun() {
+    channelIdChangeFun() {
     //   // 文章列表
     //   const res2 = await getAllArticleListAPI({
     //     channel_id: this.channelId,
@@ -135,7 +136,15 @@ export default {
     //   console.log(res2)
     //   this.articleList = res2.data.data.results
     //   // console.log(res2.data.data.results)
-    // }
+      // console.log(this.$route.meta.scrollT)
+      this.$nextTick(() => {
+        document.documentElement.scrollTop = this.channelScrollTop[this.channelId]
+      })
+    },
+    scrollFun() {
+      this.$route.meta.scrollT = document.documentElement.scrollTop
+      this.channelScrollTop[this.channelId] = document.documentElement.scrollTop
+    }
   },
   // 计算属性
   computed: {
@@ -169,6 +178,15 @@ export default {
 
       // return newArr
     }
+  },
+  activated() {
+    // console.log(111)
+    window.addEventListener('scroll', this.scrollFun)
+    // console.log(this.$route.meta.scrollT)
+    document.documentElement.scrollTop = this.$route.meta.scrollT
+  },
+  deactivated() {
+    window.removeEventListener('scroll', this.scrollFun)
   }
 }
 </script>
