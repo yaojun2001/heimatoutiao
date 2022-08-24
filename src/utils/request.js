@@ -2,7 +2,7 @@
 // 有局限性
 import theAxios from 'axios'
 import router from '@/router'
-import { Notify } from 'vant'
+import Notify from '@/ui/Notify'
 // import store from '@/store'
 import { getUserTokenAPI } from '@/api'
 import { getToken, removeToken, setToken } from '@/utils/token.js'

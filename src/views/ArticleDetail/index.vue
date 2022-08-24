@@ -63,7 +63,7 @@ import {
   articleCollectionCancelAPI,
   articleCollectionAPI
 } from '@/api'
-import { Notify } from 'vant'
+import Notify from '@/ui/Notify'
 import CommentList from './CommentList.vue'
 export default {
   name: 'ArticleDetailIndex',

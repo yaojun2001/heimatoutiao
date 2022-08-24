@@ -32,7 +32,7 @@
 import { getUserChannelsAPI, getAllChannelsAPI, updateChannelsAPI, removeTheChannelAPI } from '@/api'
 import ArticleList from './components/ArticleList.vue'
 import ChannelEdit from './ChannelEdit.vue'
-import { Notify } from 'vant'
+import Notify from '@/ui/Notify'
 // 问题：每次切换tab拿到的数据都是新的
 // 多个ArticleLise用的是同一个数组，切换会影响其他频道的列表
 // 解决： 文章列表数据，请求，数组，分别放入到ArticleList内部（自己请求自己的数据）

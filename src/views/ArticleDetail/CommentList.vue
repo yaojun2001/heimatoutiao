@@ -60,7 +60,7 @@ import {
   likingsCancelCommentAPI,
   commentArticleOrCommentAPI
 } from '@/api'
-import { Notify } from 'vant'
+import Notify from '@/ui/Notify'
 export default {
   name: 'ArticleCommentList',
   props: {

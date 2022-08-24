@@ -30,7 +30,7 @@
 
 <script>
 import { getUserProfileAPI, editUserPhotoAPI, editUserProfileAPI } from '@/api'
-import { Notify } from 'vant'
+import Notify from '@/ui/Notify'
 import { formatDateToString } from '@/utils/date.js'
 import { mapMutations } from 'vuex'
 export default {

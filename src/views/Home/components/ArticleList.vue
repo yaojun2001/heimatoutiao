@@ -12,7 +12,7 @@
 // 事件修饰符 .native -> 给组件内根标签，绑定原生click 点击事件
 import ArticleItem from '../../../components/ArticleItem.vue'
 import { getAllArticleListAPI, dislikeArticleAPI, reportsArticleAPI } from '@/api/index.js'
-import { Notify } from 'vant'
+import Notify from '@/ui/Notify'
 // 问题：网页刚打开，create里请求和onload里请求同时发送，请求的都是最新数据
 // onload中，2此一样的数据合并，数据重复，key重复
 // 原因：van-list 组件，组件挂载时，默认就会判定一次是否触底
